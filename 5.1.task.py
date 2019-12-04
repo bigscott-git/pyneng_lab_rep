@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 
-cyka = input('Choose your node aarrrrgh (r1 r2 sw1): ')
+device = input('Choose your node aarrrrgh (r1 r2 sw1): ')
 
 london_co = {
 	'r1': {
@@ -31,5 +31,5 @@ london_co = {
 
 
 print('\n' + '-' * 30 + '\n')
-print(london_co[cyka])
+print(london_co[device])
 
