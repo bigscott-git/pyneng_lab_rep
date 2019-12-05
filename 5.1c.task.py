@@ -29,7 +29,6 @@ london_co = {
 
 
 device = input('Choose your node aarrrrgh (r1 r2 sw1): ')
-params = london_co[device]
 option = input(f'choose an option {list(london_co[device].keys())} ')     
 
 
