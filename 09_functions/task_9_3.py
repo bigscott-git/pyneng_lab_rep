@@ -1,24 +1,22 @@
-# -*- coding: utf-8 -*-
-'''
-Задание 9.3
+#!/usr/bin/env python3
 
-Создать функцию get_int_vlan_map, которая обрабатывает конфигурационный файл коммутатора
-и возвращает кортеж из двух словарей:
-* словарь портов в режиме access, где ключи номера портов, а значения access VLAN:
-{'FastEthernet0/12': 10,
- 'FastEthernet0/14': 11,
- 'FastEthernet0/16': 17}
+def get_int_vlan_map(config_filename):
+	with open(config_filename, 'r') as source:
+		result = []
+		access_dict = {}
+		trunk_dict = {}
+		for lines in source:
+			if 'FastEthernet' in lines:
+				interface = lines.split()[-1]
+			elif 'access vlan' in lines:
+				access_dict[interface] = int(lines.split()[-1])
+			elif 'allowed vlan' in lines:
+#				a = [int(v) for v in str.split(lines.split()[-1], ',')]
+#				print(a)
+				trunk_dict[interface] = [int(v) for v in str.split(lines.split()[-1], ',')]
+		result.append(access_dict)
+		result.append(trunk_dict)
+	print(tuple(result))
+	return(tuple(result))
 
-* словарь портов в режиме trunk, где ключи номера портов, а значения список разрешенных VLAN:
-{'FastEthernet0/1': [10, 20],
- 'FastEthernet0/2': [11, 30],
- 'FastEthernet0/4': [17]}
-
-У функции должен быть один параметр config_filename, который ожидает как аргумент имя конфигурационного файла.
-
-Проверить работу функции на примере файла config_sw1.txt
-
-
-Ограничение: Все задания надо выполнять используя только пройденные темы.
-'''
-
+get_int_vlan_map('config_sw1.txt')

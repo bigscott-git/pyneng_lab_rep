@@ -1,18 +1,4 @@
-# -*- coding: utf-8 -*-
-'''
-Задание 9.2a
-
-Сделать копию функции generate_trunk_config из задания 9.2
-
-Изменить функцию таким образом, чтобы она возвращала не список команд, а словарь:
-    - ключи: имена интерфейсов, вида 'FastEthernet0/1'
-    - значения: список команд, который надо выполнить на этом интерфейсе
-
-Проверить работу функции на примере словаря trunk_config и шаблона trunk_mode_template.
-
-Ограничение: Все задания надо выполнять используя только пройденные темы.
-
-'''
+#!/usr/bin/env python3
 
 
 trunk_mode_template = [
@@ -25,4 +11,21 @@ trunk_config = {
     'FastEthernet0/2': [11, 30],
     'FastEthernet0/4': [17]
 }
+
+
+def generate_trunk_config(trunk_template, intf_vlan_mapping):
+	result = {}
+	for keys in intf_vlan_mapping:
+		result[keys] = []
+		for commands in trunk_template:
+			if commands.endswith('vlan'):
+				vlans = intf_vlan_mapping[keys]
+				result[keys].append(commands + ' ' + ','.join([str(v) for v in vlans]))
+			else:
+				result[keys].append(commands)
+	print(result)
+	return(result)
+
+
+generate_trunk_config(trunk_mode_template, trunk_config)
 

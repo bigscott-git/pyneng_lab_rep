@@ -24,7 +24,7 @@ def generate_access_config(intf_vlan_mapping, access_template):
 				result.append(command + ' ' + str(intf_vlan_mapping[key]))   
 			else:
 				result.append(command)
-#	print(result)
+	print(result)
 	return result
 
 
